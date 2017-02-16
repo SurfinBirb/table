@@ -20,10 +20,12 @@ public class Table {
                 if (x <= dot.x) {
                     Points.insertElementAt(new Point(x, y), index);
                     TableSize++;
+                    break;
                 }
                 else{
                     Points.insertElementAt(new Point(x, y), index+1);
                     TableSize++;
+                    break;
                 }
             }
         }
@@ -78,6 +80,7 @@ public class Table {
                 index++;
             }else{
                 int y = PreviousPoint.y + (NextPoint.y-PreviousPoint.y)*(x-PreviousPoint.x)/(NextPoint.x-PreviousPoint.x);
+                break;
             }
         }
     }
