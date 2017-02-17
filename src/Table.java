@@ -8,7 +8,7 @@ public class Table {
     private int TableSize = 0;
     private Vector<Point>  Points = new Vector<>();
 
-    private void add(int x,int y){
+    public void add(int x, int y){
         if (TableSize == 0){
             Points.addElement(new Point(x, y));
             TableSize++;
@@ -23,7 +23,7 @@ public class Table {
                     break;
                 }
                 else{
-                    Points.insertElementAt(new Point(x, y), index+1);
+                    Points.insertElementAt(new Point(x, y), index+2);
                     TableSize++;
                     break;
                 }
@@ -31,7 +31,7 @@ public class Table {
         }
     }
 
-    private void delete(int abscissa) {
+    public void delete(int abscissa) {
         if (TableSize > 0) {
             int index = 0;
             for (int i = 0; i < Points.size(); i++) {
@@ -46,16 +46,18 @@ public class Table {
         }
     }
 
-    private void getAll(){
+    public String getAll(){
         int index = 0;
+        String line = "";
         for (int i = 0; i < Points.size(); i++){
             Point dot = Points.elementAt(index);
-            System.out.println("Element #"+index+" x="+dot.x+" y="+dot.y);
+            line = line + ("Element #"+index+" x="+dot.x+" y="+dot.y+" //");
             index++;
         }
+        return line;
     }
 
-    private void search(int x){
+    public void search(int x){
         int d;
         Point dot = Points.get(0);
         int min = dot.x;
@@ -71,7 +73,7 @@ public class Table {
         }
     }
 
-    private void linearInterpolation(int x){
+    public void linearInterpolation(int x){
         int index = 0;
         for (int i = 0; i < Points.size(); i++){
             Point PreviousPoint = Points.elementAt(index);
