@@ -8,14 +8,14 @@ public class Table {
     private int TableSize = 0;
     private Vector<Point>  Points = new Vector<>();
 
-    public void add(int x, int y){
+    void add(int x, int y){
         if (TableSize == 0){
-            Points.addElement(new Point(x, y));
+            Points.add(new Point(x, y));
             TableSize++;
         }
         else {
             int index = 0;
-            for (int i = 0; i < Points.size(); i++) {
+            for (int i = 0; i <  Points.size(); i++) {
                 Point dot = Points.elementAt(index);
                 if (x <= dot.x) {
                     Points.insertElementAt(new Point(x, y), index);
@@ -23,7 +23,7 @@ public class Table {
                     break;
                 }
                 else{
-                    Points.insertElementAt(new Point(x, y), index+2);
+                    Points.add(new Point(x, y));
                     TableSize++;
                     break;
                 }
@@ -31,7 +31,7 @@ public class Table {
         }
     }
 
-    public void delete(int abscissa) {
+    void delete(int abscissa) {
         if (TableSize > 0) {
             int index = 0;
             for (int i = 0; i < Points.size(); i++) {
@@ -40,13 +40,14 @@ public class Table {
                     index++;
                 } else{
                     Points.removeElementAt(index);
+                    TableSize--;
                     break;
                 }
             }
         }
     }
 
-    public String getAll(){
+    String getAll(){
         int index = 0;
         String line = "";
         for (int i = 0; i < Points.size(); i++){
@@ -57,7 +58,7 @@ public class Table {
         return line;
     }
 
-    public void search(int x){
+    int search(int x){
         int d;
         Point dot = Points.get(0);
         int min = dot.x;
@@ -68,22 +69,37 @@ public class Table {
             d = Math.abs(dot.x-x);
             if (d < min){
                 min = d;
-                result++;
+                result=index;
             }
+            index++;
         }
+        return result;
     }
 
-    public void linearInterpolation(int x){
+    float linearInterpolation(int x) {
         int index = 0;
-        for (int i = 0; i < Points.size(); i++){
-            Point PreviousPoint = Points.elementAt(index);
-            Point NextPoint = Points.elementAt(index+1);
-            if(NextPoint.x < x){
-                index++;
-            }else{
-                int y = PreviousPoint.y + (NextPoint.y-PreviousPoint.y)*(x-PreviousPoint.x)/(NextPoint.x-PreviousPoint.x);
+        int result = 0;
+        Point PreviousPoint;
+        Point NextPoint;
+        for (int i = 0; i  < Points.size(); i++) {
+            PreviousPoint = Points.elementAt(index);
+            if (PreviousPoint==Points.lastElement()){
+                Points.add(new Point(0,0));
+                TableSize++;
+                index--;
+                PreviousPoint = Points.elementAt(index);
+                NextPoint = Points.elementAt(index + 1);
+                result = (PreviousPoint.y + (NextPoint.y - PreviousPoint.y) * (x - PreviousPoint.x) / (NextPoint.x - PreviousPoint.x));
                 break;
+            }else {
+                NextPoint = Points.elementAt(index + 1);
+                if (PreviousPoint.x > x) {
+                    result = (PreviousPoint.y + (NextPoint.y - PreviousPoint.y) * (x - PreviousPoint.x) / (NextPoint.x - PreviousPoint.x));
+                    break;
+                }
             }
+            index++;
         }
+        return result;
     }
 }
