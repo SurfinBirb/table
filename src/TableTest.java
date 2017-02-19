@@ -23,7 +23,7 @@ public class TableTest {
         funct2.add(5,7);
         funct2.add(10,11);
         funct2.add(12,13);
-        assertEquals(2, funct2.search(10));
+        assertEquals(3, funct2.search(14));
     }
     @Test
     public void LinearInterpolationTest(){

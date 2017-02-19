@@ -66,6 +66,12 @@ public class Table {
         int result = 0;
         for (int i = 0; i < Points.size(); i++) {
             dot = Points.get(index);
+            if (dot == Points.firstElement()&&x<=dot.x){
+                return 0;
+            }
+            if (dot==Points.lastElement()&&x>=dot.x){
+                return Points.size()-1;
+            }
             d = Math.abs(dot.x-x);
             if (d < min){
                 min = d;
