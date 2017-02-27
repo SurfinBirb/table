@@ -90,8 +90,6 @@ public class Table {
         for (int i = 0; i  < Points.size(); i++) {
             PreviousPoint = Points.elementAt(index);
             if (PreviousPoint==Points.lastElement()){
-                Points.add(new Point(0,0));
-                TableSize++;
                 index--;
                 PreviousPoint = Points.elementAt(index);
                 NextPoint = Points.elementAt(index + 1);
