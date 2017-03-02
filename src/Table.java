@@ -5,26 +5,21 @@
 import java.util.Vector;
 
 public class Table {
-    private int TableSize = 0;
     private Vector<Point>  Points = new Vector<>();
 
     void add(int x, int y){
-        if (TableSize == 0){
+        if (Points.isEmpty()){
             Points.add(new Point(x, y));
-            TableSize++;
         }
         else {
             int index = 0;
             for (int i = 0; i <  Points.size(); i++) {
-                Point dot = Points.elementAt(index);
-                if (x <= dot.x) {
+                if (x <= Points.elementAt(index).x) {
                     Points.insertElementAt(new Point(x, y), index);
-                    TableSize++;
                     break;
                 }
                 else{
                     Points.add(new Point(x, y));
-                    TableSize++;
                     break;
                 }
             }
@@ -32,15 +27,13 @@ public class Table {
     }
 
     void delete(int abscissa) {
-        if (TableSize > 0) {
+        if (!Points.isEmpty()) {
             int index = 0;
             for (int i = 0; i < Points.size(); i++) {
-                Point dot = Points.get(index);
-                if (dot.x != abscissa) {
+                if (Points.elementAt(index).x != abscissa) {
                     index++;
                 } else{
                     Points.removeElementAt(index);
-                    TableSize--;
                     break;
                 }
             }
@@ -51,8 +44,7 @@ public class Table {
         int index = 0;
         String line = "";
         for (int i = 0; i < Points.size(); i++){
-            Point dot = Points.elementAt(index);
-            line = line + ("Element #"+index+" x="+dot.x+" y="+dot.y+" //");
+            line = line + ("Element #"+index+" x="+Points.elementAt(index).x+" y="+Points.elementAt(index).y+" //");
             index++;
         }
         return line;
@@ -60,19 +52,17 @@ public class Table {
 
     int search(int x){
         int d;
-        Point dot = Points.get(0);
-        int min = dot.x;
+        int min = Points.get(0).x;
         int index = 0;
         int result = 0;
         for (int i = 0; i < Points.size(); i++) {
-            dot = Points.get(index);
-            if (dot == Points.firstElement()&&x<=dot.x){
+            if (Points.get(index) == Points.firstElement()&&x<=Points.get(index).x){
                 return 0;
             }
-            if (dot==Points.lastElement()&&x>=dot.x){
+            if (Points.get(index)==Points.lastElement()&&x>=Points.get(index).x){
                 return Points.size()-1;
             }
-            d = Math.abs(dot.x-x);
+            d = Math.abs(Points.get(index).x-x);
             if (d < min){
                 min = d;
                 result=index;
