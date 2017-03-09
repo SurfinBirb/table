@@ -39,13 +39,14 @@ public final class Table {
     }
 
     int linearInterpolation(int x){
-        int result=0;
+        int current = 0;
         Integer[] KeyArray = Table.keySet().toArray(new Integer[Table.keySet().size()]);
         for (int i = 0; i  < KeyArray.length-1; i++) {
-            result = (Table.get(KeyArray[i]) + (Table.get(KeyArray[i+1]) - Table.get(KeyArray[i])) * (x - KeyArray[i]) / (KeyArray[i+1] - KeyArray[i]));
+            current=i;
             if(x<KeyArray[i+1]){break;}
         }
-        return result;
+        return(Table.get(KeyArray[current]) + (Table.get(KeyArray[current+1]) - Table.get(KeyArray[current])) * (x - KeyArray[current]) / (KeyArray[current+1] - KeyArray[current]));
+
     }
 
     @Override
