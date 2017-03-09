@@ -3,33 +3,33 @@
  */
 
 import java.util.*;
-
 import static java.lang.Math.abs;
 
 public final class Table {
      Map<Integer,Integer> Table = new TreeMap<>();
 
-    void insert(int x, int  y){
+    public void insert(int x, int  y){
         if(Table.containsKey(x)){
-            throw new ArithmeticException("Already contains x");
-        }else
+            throw new IllegalArgumentException("Already have point with " + x + " abscissa");
+        }
         Table.put(x,y);
     }
 
-    void delete(int x){
+    public void delete(int x){
         if(!Table.containsKey(x)){
-            throw new ArithmeticException("No point with "+x+" abscissa");
+            throw new IllegalArgumentException("No point with " + x + " abscissa");
         }
         Table.remove(x);
     }
 
-    int find(int x) {
+    public int find(int x){
         int d;
         Integer[] KeyArray = Table.keySet().toArray(new Integer[Table.keySet().size()]);
+        if(KeyArray.length == 0){throw new IllegalArgumentException("Table is empty");}
         int min = abs(x - KeyArray[0]);
         int result = KeyArray[0];
         for (int key: KeyArray) {
-            d = Math.abs(key - x);
+            d = abs(key - x);
             if (d < min) {
                 min = d;
                 result = key;
@@ -38,9 +38,10 @@ public final class Table {
         return result;
     }
 
-    int linearInterpolation(int x){
+    public int linearInterpolation(int x){
         int current = 0;
         Integer[] KeyArray = Table.keySet().toArray(new Integer[Table.keySet().size()]);
+        if(KeyArray.length<2){throw new IllegalArgumentException("Not enough points in the table");}
         for (int i = 0; i  < KeyArray.length-1; i++) {
             current=i;
             if(x<KeyArray[i+1]){break;}
@@ -52,8 +53,21 @@ public final class Table {
     @Override
     public String toString() {
         return "Table{" +
-                "Table=" + Table +
+                "Table=" + Table.toString() +
                 '}';
     }
-}
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Table table = (Table) obj;
+        return Objects.equals(Table, table.Table);
+    }
+
+    @Override
+    public int hashCode() {
+        return Table.hashCode();
+    }
+
+}

@@ -2,12 +2,14 @@
 homework
 
 /src/Table.java
-  Table class, metods:
+  Table class, methods:
     insert ;
     delete ;
     toString - prints the table;
     find - finds point with abscissa closest to x;
     linearInterpolation - finds y(x), if its possible;
+    equals;
+    hashCode;
 /src/TableTest.java
   Test
   
